@@ -71,10 +71,10 @@ resource "random_string" "mediaworker" {
 #########################
 variable "software_install_urls" {
   default ={
-    "mediaworker_vm_script_url"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudWithAvid/master/scripts/SetupWorkerMachine.ps1"
-    "avid_nexis_client_url"         = "https://github.com/jamesptruitt/EditorialInTheCloudWithAvid/raw/master/installs/AvidNEXISClient_Win64_19.5.0.7.msi"
-    "google_chrome_enterprise_url"  = "https://github.com/jamesptruitt/EditorialInTheCloudWithAvid/raw/master/installs/googlechromestandaloneenterprise64.msi"
-    "putty_url"                     = "https://github.com/jamesptruitt/EditorialInTheCloudWithAvid/raw/master/installs/putty-64bit-0.71-installer.msi"
-    "mam_control_service_url"       = "https://github.com/jamesptruitt/EditorialInTheCloudWithAvid/raw/master/installs/MAMControlService_3.1.0.216.exe"
+    "mediaworker_vm_script_url"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/SetupWorkerMachine.ps1"
+    "avid_nexis_client_url"         = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/AvidNEXISClient_Win64_19.5.0.7.msi"
+    "google_chrome_enterprise_url"  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/googlechromestandaloneenterprise64.msi"
+    "putty_url"                     = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/putty-64bit-0.71-installer.msi"
+    "mam_control_service_url"       = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/MAMControlService_3.1.0.216.exe"
   }
 }

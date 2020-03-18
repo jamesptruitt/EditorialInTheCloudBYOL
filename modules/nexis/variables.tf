@@ -76,7 +76,7 @@ resource "random_string" "nexis" {
 #########################
 variable "nexis_storage_configuration" { # nexis_storage_vm_script_url, nexis_storage_vm_script_name, nexis_storage_vm_artifacts_location, nexis_storage_vm_build, nexis_storage_vm_part_number
   default       = {
-    "Nearline"  = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudWithAvid/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.10.1/installers,AvidNexisCloud_19.10.1-13.run,0100-38171-00"
-    "Cloud"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudWithAvid/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.10.1/installers,AvidNexisCloud_19.10.1-13.run,0100-40109-00"
+    "Nearline"  = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.10.1/installers,AvidNexisCloud_19.10.1-13.run,0100-38171-00"
+    "Cloud"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.10.1/installers,AvidNexisCloud_19.10.1-13.run,0100-40109-00"
   }
 }
