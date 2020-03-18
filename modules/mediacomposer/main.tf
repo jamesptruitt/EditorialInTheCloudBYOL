@@ -24,8 +24,9 @@ module "media_composer" {
   enable_accelerated_networking   = "true"
   is_windows_image                = "true"
   tags                            = var.tags
-}
 
+}
+/*
 resource "azurerm_virtual_machine_extension" "media_worker_gpu" {
   name                  = format("${var.hostname}-%02.0f",count.index)
   count                 = var.mediacomposer_vm_instances
@@ -59,3 +60,4 @@ SETTINGS
     }
   PROTECTED_SETTINGS
 }
+*/
