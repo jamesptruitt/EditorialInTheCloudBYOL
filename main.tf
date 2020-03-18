@@ -39,13 +39,19 @@ module "editorial_networking" {
   tags                = local.azureTags
 }
 
+locals {
+  stored_resource_group_name      = module.editorial_networking.azurerm_resource_group_name
+  stored_resource_group_location  = module.editorial_networking.azurerm_resource_group_location
+  stored_subnet_id                = module.editorial_networking.azurerm_subnet_ids[0]
+}
+
 module "nexis_deployment" {
   source                            = "./modules/nexis"
   hostname                          = "nexis"
   admin_password                    = local.admin_password
-  resource_group_name               = module.editorial_networking.azurerm_resource_group_name
-  resource_group_location           = module.editorial_networking.azurerm_resource_group_location
-  subnet_id                         = module.editorial_networking.azurerm_subnet_ids[0]
+  resource_group_name               = local.stored_resource_group_name
+  resource_group_location           = local.stored_resource_group_location
+  subnet_id                         = local.stored_subnet_id
   nexis_storage_type                = local.nexis_type
   nexis_storage_vm_size             = local.nexis_vm_size
   nexis_storage_vm_instances        = local.nexis_instances
@@ -59,9 +65,9 @@ module "mediaworker_deployment" {
   hostname                        = "mworker"
   admin_username                  = local.admin_username
   admin_password                  = local.admin_password
-  resource_group_name             = module.editorial_networking.azurerm_resource_group_name
-  resource_group_location         = module.editorial_networking.azurerm_resource_group_location
-  subnet_id                       = module.editorial_networking.azurerm_subnet_ids[0]
+  resource_group_name             = local.stored_resource_group_name
+  resource_group_location         = local.stored_resource_group_location
+  subnet_id                       = local.stored_subnet_id
   mediaworker_vm_size             = local.mediaworker_vm_size
   mediaworker_vm_instances        = local.mediaworker_vm_instances
   mediaworker_vm_number_public_ip = local.mediaworker_vm_instances
@@ -74,9 +80,9 @@ module "mediacomposer_deployment" {
   hostname                          = "mcomposer"
   admin_username                    = local.admin_username
   admin_password                    = local.admin_password
-  resource_group_name               = module.editorial_networking.azurerm_resource_group_name
-  resource_group_location           = module.editorial_networking.azurerm_resource_group_location
-  subnet_id                         = module.editorial_networking.azurerm_subnet_ids[0]
+  resource_group_name               = local.stored_resource_group_name
+  resource_group_location           = local.stored_resource_group_location
+  subnet_id                         = local.stored_subnet_id
   mediacomposer_vm_size             = local.mediacomposer_vm_size
   mediacomposer_vm_instances        = local.mediacomposer_vm_instances
   mediacomposer_vm_number_public_ip = local.mediacomposer_vm_instances
