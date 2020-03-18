@@ -7,12 +7,10 @@ variable "hostname" {
 
 variable "admin_password" {
   description = "Admin Password for Virtual Machines"
-  default     = "Password12345"
 }
 
 variable "admin_username" {
   description = "Admin Username for Virtual Machines"
-  default = "avid"
 }
 
 variable "mediaworker_vm_public_ip_dns" {
@@ -30,12 +28,10 @@ variable "mediaworker_vm_remote_port" {
 
 variable "mediaworker_vm_instances" {
   description = "description"
-  default = 2
 }
 
 variable "mediaworker_vm_size" {
   description = "description"
-  default = "Standard_DS4_V2"
 }
 
 variable "resource_group_name" {
@@ -52,9 +48,6 @@ variable "subnet_id" {
 
 variable "tags" {
   description = "description"
-  default = {
-                "environment" = "dev"
-            }
 }
 
 #########################

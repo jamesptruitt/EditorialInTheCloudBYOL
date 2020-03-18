@@ -7,7 +7,6 @@ variable "hostname" {
 
 variable "admin_password" {
   description = "Admin Password for Virtual Machines"
-  default     = "Password12345"
 }
 
 variable "admin_username" {
@@ -35,12 +34,10 @@ variable "nexis_storage_vm_instances" {
 
 variable "nexis_storage_vm_size" {
   description = "description"
-  default = "Standard_DS4_V2"
 }
 
 variable "nexis_storage_type" {
     description = ""
-    default = "Nearline"
 }
 
 variable "resource_group_name" {
@@ -57,9 +54,6 @@ variable "subnet_id" {
 
 variable "tags" {
   description = "description"
-  default = {
-                "environment" = "dev"
-            }
 }
 
 #########################
@@ -76,7 +70,7 @@ resource "random_string" "nexis" {
 #########################
 variable "nexis_storage_configuration" { # nexis_storage_vm_script_url, nexis_storage_vm_script_name, nexis_storage_vm_artifacts_location, nexis_storage_vm_build, nexis_storage_vm_part_number
   default       = {
-    "Nearline"  = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.10.1/installers,AvidNexisCloud_19.10.1-13.run,0100-38171-00"
-    "Cloud"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.10.1/installers,AvidNexisCloud_19.10.1-13.run,0100-40109-00"
+    "CloudNearline"  = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.12.1/installers,AvidNexisCloud_19.12.1-9.run,0100-38171-00"
+    "CloudOnline"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/installNexis.bash,installNexis.bash,https://ssengreleng.blob.core.windows.net/nexisgold/19.12.1/installers,AvidNexisCloud_19.12.1-9.run,0100-40109-00"
   }
 }
