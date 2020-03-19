@@ -1,5 +1,10 @@
 locals {
-
+    mediaworker_vm_script_url = "${var.software_install_urls["mediacomposer_vm_script_url"]}"
+    avid_nexis_client_url     = "${var.software_install_urls["avid_nexis_client_url"]}"
+    mediaComposer_url         = "${var.software_install_urls["mediaComposer_url"]}"
+    teradici_url              = "${var.software_install_urls["teradici_url"]}"
+    nvidia_url                = "${var.software_install_urls["nvidia_url"]}"
+    teradici_key              = "${var.software_install_urls["teradici_key"]}"
 }
 
 ###################################
@@ -25,6 +30,31 @@ module "media_composer" {
   is_windows_image                = "true"
   tags                            = var.tags
 
+}
+
+resource "azurerm_virtual_machine_extension" "media_composer" {
+  name                  = format("${var.hostname}-%02.0f",count.index)
+  count                 = var.mediacomposer_vm_instances
+  virtual_machine_name  = format("${var.hostname}-%02.0f",count.index)
+  resource_group_name   = var.resource_group_name
+  location              = var.resource_group_location
+  publisher             = "Microsoft.Compute"
+  type                  = "CustomScriptExtension"
+  type_handler_version  = "1.9"
+  depends_on            = [module.media_composer]
+  tags                  = var.tags
+
+  # CustomVMExtension Documetnation: https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows
+  settings = <<SETTINGS
+    {
+        "fileUris": ["${local.mediacomposer_vm_script_url}"]
+    }
+SETTINGS
+  protected_settings = <<PROTECTED_SETTINGS
+    {
+      "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File setupMediaComposer.ps1 ${local.teradici_key} ${local.mediaComposer_url} ${local.teradici_url} ${local.nvidia_url} ${local.avid_nexis_client_url}"
+    }
+  PROTECTED_SETTINGS
 }
 /*
 resource "azurerm_virtual_machine_extension" "media_worker_gpu" {

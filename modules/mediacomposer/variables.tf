@@ -64,10 +64,13 @@ resource "random_string" "mediacomposer" {
 #########################
 variable "software_install_urls" {
   default ={
-    "mediaworker_vm_script_url"     = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/SetupWorkerMachine.ps1"
+    "mediacomposer_vm_script_url"   = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/setupMediaComposer.ps1"
     "avid_nexis_client_url"         = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/AvidNEXISClient_Win64_19.5.0.7.msi"
     "google_chrome_enterprise_url"  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/googlechromestandaloneenterprise64.msi"
     "putty_url"                     = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/putty-64bit-0.71-installer.msi"
-    "mam_control_service_url"       = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/MAMControlService_3.1.0.216.exe"
+    "mediaComposer_url"             = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/Media_Composer_2019.12_Win.zip"
+    "teradici_url"                  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/PCoIP_agent_release_installer_2.11.0.9616_graphics.exe"
+    "nvidia_url"                    = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/412.16_grid_win10_server2016_64bit_international.exe"
+    "teradici_key"                  = ""
   }
 }
