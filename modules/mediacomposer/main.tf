@@ -1,10 +1,10 @@
 locals {
-    mediaworker_vm_script_url = "${var.software_install_urls["mediacomposer_vm_script_url"]}"
-    avid_nexis_client_url     = "${var.software_install_urls["avid_nexis_client_url"]}"
-    mediaComposer_url         = "${var.software_install_urls["mediaComposer_url"]}"
-    teradici_url              = "${var.software_install_urls["teradici_url"]}"
-    nvidia_url                = "${var.software_install_urls["nvidia_url"]}"
-    teradici_key              = "${var.software_install_urls["teradici_key"]}"
+    mediacomposer_vm_script_url = "${var.software_install_urls["mediacomposer_vm_script_url"]}"
+    avid_nexis_client_url       = "${var.software_install_urls["avid_nexis_client_url"]}"
+    mediaComposer_url           = "${var.software_install_urls["mediaComposer_url"]}"
+    teradici_url                = "${var.software_install_urls["teradici_url"]}"
+    nvidia_url                  = "${var.software_install_urls["nvidia_url"]}"
+    teradici_key                = "${var.software_install_urls["teradici_key"]}"
 }
 
 ###################################
@@ -18,6 +18,7 @@ module "media_composer" {
   admin_password                  = var.admin_password
   admin_username                  = var.admin_username
   vm_os_simple                    = "WindowsServer"
+  storage_account_type            = "Standard_LRS"
   public_ip_dns                   = var.mediacomposer_vm_public_ip_dns
   nb_public_ip                    = var.mediacomposer_vm_number_public_ip
   remote_port                     = var.mediacomposer_vm_remote_port
@@ -26,7 +27,7 @@ module "media_composer" {
   vnet_subnet_id                  = var.subnet_id
   boot_diagnostics                = "false"
   delete_os_disk_on_termination   = "true"
-  enable_accelerated_networking   = "true"
+  enable_accelerated_networking   = "false"
   is_windows_image                = "true"
   tags                            = var.tags
 

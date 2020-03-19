@@ -65,12 +65,10 @@ resource "random_string" "mediacomposer" {
 variable "software_install_urls" {
   default ={
     "mediacomposer_vm_script_url"   = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/setupMediaComposer.ps1"
-    "avid_nexis_client_url"         = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/AvidNEXISClient_Win64_19.5.0.7.msi"
-    "google_chrome_enterprise_url"  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/googlechromestandaloneenterprise64.msi"
-    "putty_url"                     = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/putty-64bit-0.71-installer.msi"
-    "mediaComposer_url"             = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/Media_Composer_2019.12_Win.zip"
-    "teradici_url"                  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/PCoIP_agent_release_installer_2.11.0.9616_graphics.exe"
-    "nvidia_url"                    = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/412.16_grid_win10_server2016_64bit_international.exe"
-    "teradici_key"                  = ""
+    "avid_nexis_client_url"         = "https://sadisneypofdeployment.blob.core.windows.net/installers/AvidNEXISClient_Win64_19.8.0.2.msi"
+    "mediaComposer_url"             = "https://sadisneypofdeployment.blob.core.windows.net/installers/Media_Composer_2019.8_Win.zip"
+    "teradici_url"                  = "https://sadisneypofdeployment.blob.core.windows.net/installers/PCoIP_agent_release_installer_2.11.0.9616_graphics.exe"
+    "nvidia_url"                    = "https://sadisneypofdeployment.blob.core.windows.net/installers/442.06_grid_win10_64bit_international_whql.exe"
+    "teradici_key"                  = "No_Key"
   }
 }

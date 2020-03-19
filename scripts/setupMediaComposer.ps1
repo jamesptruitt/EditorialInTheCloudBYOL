@@ -74,6 +74,8 @@ Remove-WindowsApps($UserPath) {
 function
 Install-ChocolatyAndPackages {
     
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
            
     Write-Log "choco Install Quicktime"
@@ -153,13 +155,13 @@ Install-Teradici {
     Set-Location -Path "C:\AzureData"
         
     Write-Log "Downloading Teradici"
-    $TeradiciDestinationPath = "C:\Users\Public\Desktop\PCoIP_agent_release_installer_graphic.exe"
+    $TeradiciDestinationPath = "D:\AzureData\PCoIP_agent_release_installer_graphic.exe"
 
     Write-Log $DestinationPath
     DownloadFileOverHttp $TeradiciURL $TeradiciDestinationPath   
     
-    #Write-Log "Install Teradici"
-    #Start-Process -FilePath $TeradiciDestinationPath -ArgumentList "/S", "/nopostreboot" -Verb RunAs -Wait
+    Write-Log "Install Teradici"
+    Start-Process -FilePath $TeradiciDestinationPath -ArgumentList "/S", "/nopostreboot" -Verb RunAs -Wait
     
     #cd "C:\Program Files (x86)\Teradici\PCoIP Agent"
 
