@@ -1,5 +1,9 @@
 #############################
-# Locals                    #
+# Locals:(Non-Tradional)    #
+# Please change the values  # 
+# in this section to        #
+# customize the setup for   # 
+# environment               #
 #############################
 locals {
   resource_group_name             = "mytest"
