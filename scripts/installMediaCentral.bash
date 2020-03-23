@@ -1,4 +1,3 @@
 #!/bin/bash
 
-echo 'Password12345' | sudo sh -c 'echo root:Password12345' | chpasswd
-echo 'Password12345' | su
+wget https://devterraforminstalls.blob.core.windows.net/installers/mediacentral_platform_2019.9.5.iso -O /tmp/mediacentral_platform_2019.9.5.iso
