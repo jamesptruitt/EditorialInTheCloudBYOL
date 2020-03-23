@@ -36,10 +36,6 @@ variable "media_central_vm_size" {
   description = "description"
 }
 
-variable "nexis_storage_type" {
-    description = ""
-}
-
 variable "resource_group_name" {
   description = ""
 }

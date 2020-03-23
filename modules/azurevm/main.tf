@@ -44,6 +44,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
+    disk_size_gb      = 200
   }
 
   os_profile {
@@ -89,6 +90,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
+    disk_size_gb      = 200
   }
 
   storage_data_disk {

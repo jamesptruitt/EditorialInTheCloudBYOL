@@ -7,7 +7,7 @@
 #############################
 locals {
   resource_group_name             = "mytest"
-  location                        = "eastus"
+  location                        = "westus2"
   admin_username                  = "azureuser"
   admin_password                  = "Password12345"
   address_space                   = "10.0.0.0/16"
@@ -22,8 +22,11 @@ locals {
   mediaworker_vm_instances        = 0
   mediaworker_vm_public_ip_dns    = ["mw00-${random_string.general.result}","mw01-${random_string.general.result}"]
   mediacomposer_vm_size           = "Standard_NV12"
-  mediacomposer_vm_instances      = 1
+  mediacomposer_vm_instances      = 0
   mediacomposer_vm_public_ip_dns  = ["mc00-${random_string.general.result}","mc01-${random_string.general.result}"]
+  media_central_vm_size           = "Standard_DS4_V2"
+  media_central_vm_instances      = 1
+  media_central_vm_public_ip_dns  = ["ux00-${random_string.general.result}","ux01-${random_string.general.result}"]
   azureTags = {
                 "environment" = "dev"
               }
@@ -68,7 +71,7 @@ module "nexis_deployment" {
   tags                              = local.azureTags
 }
 
-module "mediaworker_deployment" {
+module "media_worker_deployment" {
   source                          = "./modules/mediaworker"
   hostname                        = "mworker"
   admin_username                  = local.admin_username
@@ -83,7 +86,7 @@ module "mediaworker_deployment" {
   tags                            = local.azureTags
 }
 
-module "mediacomposer_deployment" {
+module "media_composer_deployment" {
   source                            = "./modules/mediacomposer"
   hostname                          = "mcomposer"
   admin_username                    = local.admin_username
@@ -95,5 +98,20 @@ module "mediacomposer_deployment" {
   mediacomposer_vm_instances        = local.mediacomposer_vm_instances
   mediacomposer_vm_number_public_ip = local.mediacomposer_vm_instances
   mediacomposer_vm_public_ip_dns    = local.mediacomposer_vm_public_ip_dns
+  tags                              = local.azureTags
+}
+
+module "media_central_deployment" {
+  source                            = "./modules/mediacentral"
+  hostname                          = "mcentral"
+  admin_username                    = local.admin_username
+  admin_password                    = local.admin_password
+  resource_group_name               = local.stored_resource_group_name
+  resource_group_location           = local.stored_resource_group_location
+  subnet_id                         = local.stored_subnet_id
+  media_central_vm_size             = local.media_central_vm_size
+  media_central_vm_instances        = local.media_central_vm_instances
+  media_central_vm_number_public_ip = local.media_central_vm_instances
+  media_central_vm_public_ip_dns    = local.media_central_vm_public_ip_dns
   tags                              = local.azureTags
 }
