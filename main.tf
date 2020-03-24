@@ -15,14 +15,14 @@ locals {
   subnet_prefixes                 = ["10.0.1.0/24"]
   subnet_names                    = ["default"]
   nexis_vm_size                   = "Standard_DS4_V2"
-  nexis_instances                 = 0
+  nexis_instances                 = 1
   nexis_storage_vm_public_ip_dns  = ["nx00-${random_string.general.result}"]
   nexis_type                      = "CloudNearline" # options "CloudNearline" or "CloudOnline"
   mediaworker_vm_size             = "Standard_DS4_V2"
-  mediaworker_vm_instances        = 0
+  mediaworker_vm_instances        = 2
   mediaworker_vm_public_ip_dns    = ["mw00-${random_string.general.result}","mw01-${random_string.general.result}"]
   mediacomposer_vm_size           = "Standard_NV12"
-  mediacomposer_vm_instances      = 0
+  mediacomposer_vm_instances      = 2
   mediacomposer_vm_public_ip_dns  = ["mc00-${random_string.general.result}","mc01-${random_string.general.result}"]
   media_central_vm_size           = "Standard_DS4_V2"
   media_central_vm_instances      = 1
