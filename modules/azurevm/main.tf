@@ -44,7 +44,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
-    disk_size_gb      = 200
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   os_profile {
@@ -90,7 +90,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
-    disk_size_gb      = 200
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   storage_data_disk {
@@ -144,6 +144,7 @@ resource "azurerm_virtual_machine" "vm-windows" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   os_profile {
@@ -187,6 +188,7 @@ resource "azurerm_virtual_machine" "vm-windows-with-datadisk" {
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   storage_data_disk {
@@ -252,7 +254,7 @@ resource "azurerm_network_security_rule" "security_rule_remote_port" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = coalesce(var.remote_port, module.os.calculated_remote_port)
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.vm.name
@@ -267,7 +269,7 @@ resource "azurerm_network_security_rule" "security_rule_80" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = 80
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.vm.name
@@ -282,7 +284,7 @@ resource "azurerm_network_security_rule" "security_rule_443" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = 443
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.vm.name

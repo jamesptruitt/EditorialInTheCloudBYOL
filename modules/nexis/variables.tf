@@ -52,6 +52,11 @@ variable "subnet_id" {
   description = ""
 }
 
+variable "source_address_prefix" {
+  description = "CIDR or source IP range or * to match any IP. Tags such as ‘VirtualNetwork’, ‘AzureLoadBalancer’ and ‘Internet’ can also be used."
+  default = "*"
+}
+
 variable "tags" {
   description = "description"
 }

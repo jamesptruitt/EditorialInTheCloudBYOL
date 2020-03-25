@@ -20,7 +20,7 @@ module "media_central_servers" {
   boot_diagnostics                = "false"
   delete_os_disk_on_termination   = "true"
   data_disk                       = "true"
-  data_disk_size_gb               = "128"
+  data_disk_size_gb               = "1024"
   data_sa_type                    = "Premium_LRS"
   hide_suffix                     = "true"
   tags                            = var.tags
@@ -38,10 +38,9 @@ resource "azurerm_virtual_machine_extension" "media_central_servers" {
   depends_on            = [module.media_central_servers]
   tags                  = var.tags
 
-  # CustomVMExtension Documetnation: https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows
   settings = <<EOF
     {     
-       "commandToExecute": "echo ${var.admin_password} | sudo sh -c 'echo root:root | chpasswd' && wget '${local.media_central_vm_script_url}' -O ${local.media_central_vm_script_name} && echo root | sudo -S /bin/bash ${local.media_central_vm_script_name}" 
+      "commandToExecute": "echo ${var.admin_password} | sudo sh -c 'echo root:root | chpasswd' && wget '${local.media_central_vm_script_url}' -O ${local.media_central_vm_script_name} && echo root | sudo -S /bin/bash ${local.media_central_vm_script_name}"
     }
   EOF
 }

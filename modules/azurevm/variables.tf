@@ -136,6 +136,12 @@ variable "data_disk_size_gb" {
   default     = ""
 }
 
+variable "os_disk_size_gb" {
+  description = "OS disk size size"
+  default = "1024"
+}
+
+
 variable "data_disk" {
   type        = bool
   description = "Set to true to add a datadisk."
@@ -157,6 +163,11 @@ variable "enable_accelerated_networking" {
   type        = bool
   description = "(Optional) Enable accelerated networking on Network interface"
   default     = false
+}
+
+variable "source_address_prefix" {
+  description = "CIDR or source IP range or * to match any IP. Tags such as ‘VirtualNetwork’, ‘AzureLoadBalancer’ and ‘Internet’ can also be used."
+  default = "*"
 }
 
 variable "hide_suffix" {

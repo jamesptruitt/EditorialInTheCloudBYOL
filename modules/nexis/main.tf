@@ -55,8 +55,6 @@ resource "azurerm_virtual_machine_extension" "nexis_storage_servers" {
   depends_on            = [module.nexis_storage_servers]
   tags                  = var.tags
 
-  # CustomVMExtension Documetnation: https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows
-
   settings = <<EOF
     {
        "commandToExecute": "wget '${local.nexis_storage_vm_script_url}' -O ${local.nexis_storage_vm_script_name} && echo ${var.admin_password} | sudo -S /bin/bash ${local.nexis_storage_vm_script_name} ${var.hostname} ${local.nexis_storage_vm_artifacts_location} ${local.nexis_storage_vm_build} ${local.nexis_storage_vm_part_number}" 
