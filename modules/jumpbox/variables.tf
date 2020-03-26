@@ -13,26 +13,26 @@ variable "admin_username" {
   description = "Admin Username for Virtual Machines"
 }
 
-variable "mediacomposer_vm_public_ip_dns" {
+variable "jump_box_vm_public_ip_dns" {
   description = "description"
   default = []
 }
 
-variable "mediacomposer_vm_number_public_ip" {
+variable "jump_box_vm_number_public_ip" {
   description = "description"
   default = 0
 }
 
-variable "mediacomposer_vm_remote_port" {
+variable "jump_box_vm_remote_port" {
   description = "description"
   default = 3389
 }
 
-variable "mediacomposer_vm_instances" {
+variable "jump_box_vm_instances" {
   description = "description"
 }
 
-variable "mediacomposer_vm_size" {
+variable "jump_box_vm_size" {
   description = "description"
 }
 
@@ -79,7 +79,7 @@ variable "software_install_urls" {
     "mediacomposer_vm_script_url"   = "https://raw.githubusercontent.com/jamesptruitt/EditorialInTheCloudBYOL/master/scripts/setupMediaComposer.ps1"
     "avid_nexis_client_url"         = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/AvidNEXISClient_Win64_19.12.1.9.msi"
     "mediaComposer_url"             = "https://devterraforminstalls.blob.core.windows.net/installers/Media_Composer_2019.12_Win.zip"
-    "teradici_url"                  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/feature/disney/installs/PCoIP_agent_release_installer_2.11.0.9616_graphics.exe"
+    "teradici_url"                  = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/PCoIP_agent_release_installer_2.11.0.9616_graphics.exe"
     "nvidia_url"                    = "https://github.com/jamesptruitt/EditorialInTheCloudBYOL/raw/master/installs/442.06_grid_win10_64bit_international_whql.exe"
     "teradici_key"                  = "No_Key"
   }

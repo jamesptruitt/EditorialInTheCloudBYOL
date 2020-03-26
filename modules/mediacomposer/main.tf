@@ -17,6 +17,7 @@ module "media_composer" {
   vm_hostname                     = var.hostname
   admin_password                  = var.admin_password
   admin_username                  = var.admin_username
+  base_index                      = var.base_index
   vm_os_simple                    = "WindowsServer"
   storage_account_type            = "Standard_LRS"
   public_ip_dns                   = var.mediacomposer_vm_public_ip_dns
@@ -33,9 +34,9 @@ module "media_composer" {
 }
 
 resource "azurerm_virtual_machine_extension" "media_composer" {
-  name                  = format("${var.hostname}-%02.0f",count.index)
+  name                  = format("${var.hostname}-%02.0f",count.index + var.base_index)
   count                 = var.mediacomposer_vm_instances
-  virtual_machine_name  = format("${var.hostname}-%02.0f",count.index)
+  virtual_machine_name  = format("${var.hostname}-%02.0f",count.index + var.base_index)
   resource_group_name   = var.resource_group_name
   location              = var.resource_group_location
   publisher             = "Microsoft.Compute"

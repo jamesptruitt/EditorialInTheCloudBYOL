@@ -53,6 +53,11 @@ variable "source_address_prefix" {
   default = "*"
 }
 
+variable "base_index" {
+  description = "Base index"
+  default = 0
+}
+
 variable "tags" {
   description = "description"
 }

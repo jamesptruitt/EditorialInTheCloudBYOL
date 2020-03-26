@@ -20,6 +20,7 @@ module "media_worker" {
   public_ip_dns                   = var.mediaworker_vm_public_ip_dns
   nb_public_ip                    = var.mediaworker_vm_number_public_ip
   remote_port                     = var.mediaworker_vm_remote_port
+  base_index                      = var.base_index
   nb_instances                    = var.mediaworker_vm_instances
   vm_size                         = var.mediaworker_vm_size
   vnet_subnet_id                  = var.subnet_id
@@ -31,9 +32,9 @@ module "media_worker" {
 }
 
 resource "azurerm_virtual_machine_extension" "media_worker" {
-  name                  = format("${var.hostname}-%02.0f",count.index)
+  name                  = format("${var.hostname}-%02.0f",count.index + var.base_index)
   count                 = var.mediaworker_vm_instances
-  virtual_machine_name  = format("${var.hostname}-%02.0f",count.index)
+  virtual_machine_name  = format("${var.hostname}-%02.0f",count.index + var.base_index)
   resource_group_name   = var.resource_group_name
   location              = var.resource_group_location
   publisher             = "Microsoft.Compute"

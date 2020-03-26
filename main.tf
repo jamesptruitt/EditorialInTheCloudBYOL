@@ -6,31 +6,52 @@
 # environment               #
 #############################
 locals {
-  resource_group_name               = "mytest"
-  location                          = "westus2"
+  resource_group_name               = "myresourcegroup"
+  location                          = "eastus"
+  
   admin_username                    = "azureuser"
   admin_password                    = "Password12345"
+  
   address_space                     = "10.0.0.0/16"
   subnet_prefixes                   = ["10.0.1.0/24"]
   dns_servers                       = []
   subnet_names                      = ["default"]
+  
   source_address_prefix             = "*"
+  
+  jump_box_vm_size                  = "Standard_B2ms"
+  jump_box_vm_instances             = 1
+  jump_box_vm_number_public_ip      = 1
+  jump_box_base_index               = 0
+  jump_box_vm_public_ip_dns         = ["jump00-${random_string.general.result}"]
+  
   mediacomposer_vm_size             = "Standard_NV12"
-  mediacomposer_vm_instances        = 2
+  mediacomposer_base_index          = 0
+  mediacomposer_vm_instances        = 0
   mediacomposer_vm_number_public_ip = 0
   mediacomposer_vm_public_ip_dns    = []
-  #nexis_vm_size                    = "Standard_DS4_V2"
-  #nexis_instances                  = 0
-  #nexis_storage_vm_public_ip_dns   = ["nx00-${random_string.general.result}"]
-  #nexis_type                       = "CloudNearline" # options "CloudNearline" or "CloudOnline"
-  #mediaworker_vm_size              = "Standard_DS4_V2"
-  #mediaworker_vm_instances         = 0
-  #mediaworker_vm_public_ip_dns     = ["mw00-${random_string.general.result}","mw01-${random_string.general.result}"]
-  #media_central_vm_size            = "Standard_DS4_V2"
-  #media_central_vm_instances       = 0
-  #media_central_vm_public_ip_dns   = []
+
+  nexis_vm_size                     = "Standard_DS4_V2"
+  nexis_base_index                  = 0
+  nexis_instances                   = 0
+  nexis_storage_vm_number_public_ip = 0
+  nexis_storage_vm_public_ip_dns    = []
+  nexis_type                        = "CloudNearline" # options "CloudNearline" or "CloudOnline"
+    
+  mediaworker_vm_size               = "Standard_DS4_V2"
+  mediaworker_base_index            = 0
+  mediaworker_vm_instances          = 0
+  mediaworker_vm_number_public_ip   = 0
+  mediaworker_vm_public_ip_dns      = []
+  
+  media_central_vm_size             = "Standard_DS4_V2"
+  media_central_base_index          = 0
+  media_central_vm_instances        = 0
+  media_central_vm_number_public_ip = 0
+  media_central_vm_public_ip_dns    = []
+  
   azureTags = {
-                "environment" = "dev"
+                "environment" = "BYOL"
               }
 }
 
@@ -67,6 +88,7 @@ module "media_composer_deployment" {
   resource_group_location           = local.stored_resource_group_location
   subnet_id                         = local.stored_subnet_id
   source_address_prefix             = local.source_address_prefix
+  base_index                        = local.mediacomposer_base_index 
   mediacomposer_vm_size             = local.mediacomposer_vm_size
   mediacomposer_vm_instances        = local.mediacomposer_vm_instances
   mediacomposer_vm_number_public_ip = local.mediacomposer_vm_number_public_ip
@@ -74,7 +96,23 @@ module "media_composer_deployment" {
   tags                              = local.azureTags
 }
 
-/*
+module "jump_box_deployment" {
+  source                        = "./modules/jumpbox"
+  hostname                      = "jumpbox"
+  admin_username                = local.admin_username
+  admin_password                = local.admin_password
+  resource_group_name           = local.stored_resource_group_name
+  resource_group_location       = local.stored_resource_group_location
+  subnet_id                     = local.stored_subnet_id
+  source_address_prefix         = local.source_address_prefix
+  base_index                    = local.jump_box_base_index 
+  jump_box_vm_size              = local.jump_box_vm_size
+  jump_box_vm_instances         = local.jump_box_vm_instances
+  jump_box_vm_number_public_ip  = local.jump_box_vm_number_public_ip
+  jump_box_vm_public_ip_dns     = local.jump_box_vm_public_ip_dns
+  tags                          = local.azureTags
+}
+
 module "nexis_deployment" {
   source                            = "./modules/nexis"
   hostname                          = "nexis"
@@ -83,10 +121,11 @@ module "nexis_deployment" {
   resource_group_location           = local.stored_resource_group_location
   subnet_id                         = local.stored_subnet_id
   source_address_prefix             = local.source_address_prefix
+  base_index                        = local.nexis_base_index 
   nexis_storage_type                = local.nexis_type
   nexis_storage_vm_size             = local.nexis_vm_size
   nexis_storage_vm_instances        = local.nexis_instances
-  nexis_storage_vm_number_public_ip = local.nexis_instances
+  nexis_storage_vm_number_public_ip = local.nexis_storage_vm_number_public_ip
   nexis_storage_vm_public_ip_dns    = local.nexis_storage_vm_public_ip_dns
   tags                              = local.azureTags
 }
@@ -100,9 +139,10 @@ module "media_worker_deployment" {
   resource_group_location         = local.stored_resource_group_location
   subnet_id                       = local.stored_subnet_id
   source_address_prefix           = local.source_address_prefix
+  base_index                      = local.mediaworker_base_index 
   mediaworker_vm_size             = local.mediaworker_vm_size
   mediaworker_vm_instances        = local.mediaworker_vm_instances
-  mediaworker_vm_number_public_ip = local.mediaworker_vm_instances
+  mediaworker_vm_number_public_ip = local.mediaworker_vm_number_public_ip
   mediaworker_vm_public_ip_dns    = local.mediaworker_vm_public_ip_dns
   tags                            = local.azureTags
 }
@@ -116,10 +156,10 @@ module "media_central_deployment" {
   resource_group_location           = local.stored_resource_group_location
   subnet_id                         = local.stored_subnet_id
   source_address_prefix             = local.source_address_prefix
+  base_index                        = local.media_central_base_index 
   media_central_vm_size             = local.media_central_vm_size
   media_central_vm_instances        = local.media_central_vm_instances
-  media_central_vm_number_public_ip = local.media_central_vm_instances
+  media_central_vm_number_public_ip = local.media_central_vm_number_public_ip
   media_central_vm_public_ip_dns    = local.media_central_vm_public_ip_dns
   tags                              = local.azureTags
 }
-*/

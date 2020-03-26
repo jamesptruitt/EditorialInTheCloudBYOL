@@ -33,9 +33,84 @@ output "azurerm_subnet_ids" {
   value       = "${module.editorial_networking.vnet_subnets}"
   description = "The subnet IDs for the VNET"
 }
-/*
-output "azurerm_route_table_id" {
-  value       = "${module.show_networking.azurerm_route_table_id}"
-  description = "The routing table ID"
+
+
+output "jump_box_virtual_machine_ids" {
+  value = "${module.jump_box_deployment.virtual_machine_ids}"
 }
-*/
+
+output "jump_box_virtual_machine_private_ips" {
+  value = "${module.jump_box_deployment.virtual_machine_private_ips}"
+}
+
+output "jump_box_virtual_machine_public_ips" {
+  value = "${module.jump_box_deployment.virtual_machine_public_ips}"
+}
+
+output "jump_box_virtual_machine_public_ip_dns_name" {
+  value = "${module.jump_box_deployment.virtual_machine_public_ip_dns_name}"
+}
+
+output "media_composer_virtual_machine_ids" {
+  value = "${module.media_composer_deployment.virtual_machine_ids}"
+}
+
+output "media_composer_virtual_machine_private_ips" {
+  value = "${module.media_composer_deployment.virtual_machine_private_ips}"
+}
+
+output "media_composer_virtual_machine_public_ips" {
+  value = "${module.media_composer_deployment.virtual_machine_public_ips}"
+}
+
+output "media_composer_virtual_machine_public_ip_dns_name" {
+  value = "${module.media_composer_deployment.virtual_machine_public_ip_dns_name}"
+}
+
+output "nexis_virtual_machine_ids" {
+  value = "${module.nexis_deployment.virtual_machine_ids}"
+}
+
+output "nexis_virtual_machine_private_ips" {
+  value = "${module.nexis_deployment.virtual_machine_private_ips}"
+}
+
+output "nexis_virtual_machine_public_ips" {
+  value = "${module.nexis_deployment.virtual_machine_public_ips}"
+}
+
+output "nexis_virtual_machine_public_ip_dns_name" {
+  value = "${module.nexis_deployment.virtual_machine_public_ip_dns_name}"
+}
+
+output "media_worker_virtual_machine_ids" {
+  value = "${module.media_worker_deployment.virtual_machine_ids}"
+}
+
+output "media_worker_virtual_machine_private_ips" {
+  value = "${module.media_worker_deployment.virtual_machine_private_ips}"
+}
+
+output "media_worker_virtual_machine_public_ips" {
+  value = "${module.media_worker_deployment.virtual_machine_public_ips}"
+}
+
+output "media_worker_virtual_machine_public_ip_dns_name" {
+  value = "${module.media_worker_deployment.virtual_machine_public_ip_dns_name}"
+}
+
+output "media_central_virtual_machine_ids" {
+  value = "${module.media_central_deployment.virtual_machine_ids}"
+}
+
+output "media_central_virtual_machine_private_ips" {
+  value = "${module.media_central_deployment.virtual_machine_private_ips}"
+}
+
+output "media_central_virtual_machine_public_ips" {
+  value = "${module.media_central_deployment.virtual_machine_public_ips}"
+}
+
+output "media_central_virtual_machine_public_ip_dns_name" {
+  value = "${module.media_central_deployment.virtual_machine_public_ip_dns_name}"
+}

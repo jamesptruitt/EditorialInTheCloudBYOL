@@ -13,6 +13,7 @@ module "media_central_servers" {
   public_ip_dns                   = var.media_central_vm_public_ip_dns
   nb_public_ip                    = var.media_central_vm_number_public_ip
   remote_port                     = var.media_central_vm_remote_port
+  base_index                      = var.base_index
   nb_instances                    = var.media_central_vm_instances
   vm_os_simple                    = "CentOS"
   vm_size                         = var.media_central_vm_size
