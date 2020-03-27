@@ -23,7 +23,7 @@ resource "azurerm_storage_account" "vm-sa" {
 
 resource "azurerm_virtual_machine" "vm-linux" {
   count                         = ! contains(list(var.vm_os_simple, var.vm_os_offer), "Windows") && ! var.is_windows_image && ! var.data_disk ? var.nb_instances : 0
-  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
   location                      = var.location
   resource_group_name           = var.resource_group_name
   availability_set_id           = azurerm_availability_set.vm.id
@@ -40,15 +40,15 @@ resource "azurerm_virtual_machine" "vm-linux" {
   }
 
   storage_os_disk {
-    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index)
+    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index + var.base_index)
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
-    disk_size_gb      = 200
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   os_profile {
-    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
     admin_username = var.admin_username
     admin_password = var.admin_password
     custom_data    = var.custom_data
@@ -69,7 +69,7 @@ resource "azurerm_virtual_machine" "vm-linux" {
 
 resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   count                         = ! contains(list(var.vm_os_simple, var.vm_os_offer), "Windows") && ! var.is_windows_image && var.data_disk ? var.nb_instances : 0
-  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
   location                      = var.location
   resource_group_name           = var.resource_group_name
   availability_set_id           = azurerm_availability_set.vm.id
@@ -86,11 +86,11 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   }
 
   storage_os_disk {
-    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index)
+    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index + var.base_index)
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
-    disk_size_gb      = 200
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   storage_data_disk {
@@ -102,7 +102,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
   }
 
   os_profile {
-    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
     admin_username = var.admin_username
     admin_password = var.admin_password
     custom_data    = var.custom_data
@@ -123,7 +123,7 @@ resource "azurerm_virtual_machine" "vm-linux-with-datadisk" {
 
 resource "azurerm_virtual_machine" "vm-windows" {
   count                         = ((var.is_windows_image || contains(list(var.vm_os_simple, var.vm_os_offer), "Windows")) && ! var.data_disk) ? var.nb_instances : 0
-  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
   location                      = var.location
   resource_group_name           = var.resource_group_name
   availability_set_id           = azurerm_availability_set.vm.id
@@ -140,14 +140,15 @@ resource "azurerm_virtual_machine" "vm-windows" {
   }
 
   storage_os_disk {
-    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index)
+    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index + var.base_index)
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   os_profile {
-    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
     admin_username = var.admin_username
     admin_password = var.admin_password
   }
@@ -166,7 +167,7 @@ resource "azurerm_virtual_machine" "vm-windows" {
 
 resource "azurerm_virtual_machine" "vm-windows-with-datadisk" {
   count                         = (var.is_windows_image || contains(list(var.vm_os_simple, var.vm_os_offer), "Windows")) && var.data_disk ? var.nb_instances : 0
-  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+  name                          = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
   location                      = var.location
   resource_group_name           = var.resource_group_name
   availability_set_id           = azurerm_availability_set.vm.id
@@ -183,14 +184,15 @@ resource "azurerm_virtual_machine" "vm-windows-with-datadisk" {
   }
 
   storage_os_disk {
-    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index)
+    name              = format("osdisk-${var.vm_hostname}-%02.0f",count.index + var.base_index)
     create_option     = "FromImage"
     caching           = "ReadWrite"
     managed_disk_type = var.storage_account_type
+    disk_size_gb      = var.os_disk_size_gb
   }
 
   storage_data_disk {
-    name              = format("datadisk-${var.vm_hostname}-%02.0f",count.index)
+    name              = format("datadisk-${var.vm_hostname}-%02.0f",count.index + var.base_index)
     create_option     = "Empty"
     lun               = 0
     disk_size_gb      = var.data_disk_size_gb
@@ -198,7 +200,7 @@ resource "azurerm_virtual_machine" "vm-windows-with-datadisk" {
   }
 
   os_profile {
-    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index)
+    computer_name  = var.hide_suffix ? var.vm_hostname : format("${var.vm_hostname}-%02.0f",count.index + var.base_index)
     admin_username = var.admin_username
     admin_password = var.admin_password
   }
@@ -227,7 +229,7 @@ resource "azurerm_availability_set" "vm" {
 
 resource "azurerm_public_ip" "vm" {
   count               = var.nb_public_ip
-  name                = format("${var.vm_hostname}-%02.0f-publicIP",count.index)
+  name                = format("${var.vm_hostname}-%02.0f-publicIP",count.index + var.base_index)
   location            = var.location
   resource_group_name = var.resource_group_name
   allocation_method   = coalesce(var.allocation_method, var.public_ip_address_allocation, "Dynamic")
@@ -252,7 +254,7 @@ resource "azurerm_network_security_rule" "security_rule_remote_port" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = coalesce(var.remote_port, module.os.calculated_remote_port)
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.vm.name
@@ -267,7 +269,7 @@ resource "azurerm_network_security_rule" "security_rule_80" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = 80
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.vm.name
@@ -282,7 +284,7 @@ resource "azurerm_network_security_rule" "security_rule_443" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = 443
-  source_address_prefix       = "*"
+  source_address_prefix       = var.source_address_prefix
   destination_address_prefix  = "*"
   resource_group_name         = var.resource_group_name
   network_security_group_name = azurerm_network_security_group.vm.name
@@ -290,7 +292,7 @@ resource "azurerm_network_security_rule" "security_rule_443" {
 
 resource "azurerm_network_interface" "vm" {
   count                         = var.nb_instances
-  name                          = format("nic-${var.vm_hostname}-%02.0f",count.index)
+  name                          = format("nic-${var.vm_hostname}-%02.0f",count.index + var.base_index)
   location                      = var.location
   resource_group_name           = var.resource_group_name
   network_security_group_id     = azurerm_network_security_group.vm.id

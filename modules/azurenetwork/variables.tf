@@ -56,3 +56,8 @@ variable "sg_name" {
   description = "Give a name to security group"
   default = "acctsecgrp"
 }
+
+variable "source_address_prefix" {
+  description = "CIDR or source IP range or * to match any IP. Tags such as ‘VirtualNetwork’, ‘AzureLoadBalancer’ and ‘Internet’ can also be used."
+  default = "*"
+}

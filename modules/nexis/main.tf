@@ -30,6 +30,7 @@ module "nexis_storage_servers" {
   nb_public_ip                    = var.nexis_storage_vm_number_public_ip
   remote_port                     = var.nexis_storage_vm_remote_port
   nb_instances                    = var.nexis_storage_vm_instances
+  base_index                      = var.base_index
   vm_os_simple                    = "Debian"
   vm_os_version                   = "8.20191118.0"
   vm_size                         = var.nexis_storage_vm_size
@@ -54,8 +55,6 @@ resource "azurerm_virtual_machine_extension" "nexis_storage_servers" {
   type_handler_version  = "2.0"
   depends_on            = [module.nexis_storage_servers]
   tags                  = var.tags
-
-  # CustomVMExtension Documetnation: https://docs.microsoft.com/en-us/azure/virtual-machines/extensions/custom-script-windows
 
   settings = <<EOF
     {
