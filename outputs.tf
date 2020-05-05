@@ -34,7 +34,6 @@ output "azurerm_subnet_ids" {
   description = "The subnet IDs for the VNET"
 }
 
-
 output "jump_box_virtual_machine_ids" {
   value = "${module.jump_box_deployment.virtual_machine_ids}"
 }

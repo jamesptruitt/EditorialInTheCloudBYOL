@@ -1,0 +1,8 @@
+shared_image_gallery_subscription_id    = "099b944c-88e4-4e8a-a31f-53a40b1fb996"
+shared_image_gallery_client_id          = "870d0f2c-1e41-424b-bb55-fd07f91f51c3"
+shared_image_gallery_client_secret      = "0b43ae17-1d0c-4c12-9881-427df835fe66"
+shared_image_gallery_tenant_id          = "72f988bf-86f1-41af-91ab-2d7cd011db47"
+gallery_resource_group_name             = "shared-images"
+gallery_name                            = "shared_image_gallery"
+shared_image_name                       = "Jumpbox"
+shared_image_version                    = "1.0.0"

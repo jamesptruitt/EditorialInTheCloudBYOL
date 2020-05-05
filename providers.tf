@@ -1,5 +1,7 @@
+/*
 #Set the terraform required version and the backend
 terraform {
+
 }
 # Configure the Azure Provider
 provider "azurerm" {
@@ -8,9 +10,11 @@ provider "azurerm" {
   #client_id       = var.client_id
   #client_secret   = var.client_secret
   #tenant_id       = var.tenant_id
-  version         = "~>1.44.0"
+  features {}
+  version = "~>2.0.0"
 }
 
 provider "random" {
   version = "~> 2.2"
 }
+*/
