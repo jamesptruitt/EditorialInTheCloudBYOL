@@ -11,31 +11,27 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = [var.address_space]
   resource_group_name = azurerm_resource_group.network.name
   dns_servers         = var.dns_servers
-
-  subnet{
-    name            = var.subnet_names[0]
-    address_prefix  = var.subnet_prefixes[0]
-    security_group  = azurerm_network_security_group.security_group.id
-  }
-
   tags  = var.tags
 }
 
-/*
 resource "azurerm_subnet" "subnet" {
-  name                 = var.subnet_names[count.index]
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  resource_group_name  = azurerm_resource_group.network.name
-  address_prefix       = var.subnet_prefixes[count.index]
-  network_security_group_id = azurerm_network_security_group.security_group.id
-  count                =  length(var.subnet_names)
+  name                                            = var.subnet_names[count.index]
+  virtual_network_name                            = azurerm_virtual_network.vnet.name
+  resource_group_name                             = azurerm_resource_group.network.name
+  address_prefixes                                = [var.subnet_prefixes[count.index]]
+  enforce_private_link_endpoint_network_policies  = (var.subnet_names[count.index] == "storage") ? true : false
+  enforce_private_link_service_network_policies   = (var.subnet_names[count.index] == "storage") ? true : false
+  count                                           =  length(var.subnet_names)
 }
-*/
 
 locals {
-  subnet_ids = azurerm_virtual_network.vnet.subnet.*.id
+  subnet_ids = azurerm_subnet.subnet.*.id
 }
 
+resource "azurerm_subnet_network_security_group_association" "example" {
+  subnet_id                 = local.subnet_ids[0]
+  network_security_group_id = azurerm_network_security_group.security_group.id
+}
 
 resource "azurerm_network_security_group" "security_group" {
   name                  = var.sg_name 
