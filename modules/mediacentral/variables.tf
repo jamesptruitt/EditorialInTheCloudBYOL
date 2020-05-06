@@ -14,10 +14,6 @@ variable "admin_username" {
   default = "avid"
 }
 
-variable "media_central_vm_public_ip_dns" {
-  description = "description"
-}
-
 variable "media_central_vm_number_public_ip" {
   description = "description"
 }
@@ -34,6 +30,16 @@ variable "media_central_vm_instances" {
 
 variable "media_central_vm_size" {
   description = "description"
+}
+
+variable "media_central_vm_os_simple"{   
+  description = "description"                 
+  default = "WindowsServer"
+}
+
+variable "media_central_vm_os_id"{   
+  description = "description"                 
+  default = ""
 }
 
 variable "resource_group_name" {

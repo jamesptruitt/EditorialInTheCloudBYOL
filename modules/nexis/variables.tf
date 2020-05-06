@@ -14,10 +14,6 @@ variable "admin_username" {
   default = "avid"
 }
 
-variable "nexis_storage_vm_public_ip_dns" {
-  description = "description"
-}
-
 variable "nexis_storage_vm_number_public_ip" {
   description = "description"
 }
@@ -38,6 +34,16 @@ variable "nexis_storage_vm_size" {
 
 variable "nexis_storage_type" {
     description = ""
+}
+
+variable "nexis_vm_os_simple"{   
+  description = "description"                 
+  default = "Debian"
+}
+
+variable "nexis_vm_os_id"{   
+  description = "description"                 
+  default = ""
 }
 
 variable "resource_group_name" {

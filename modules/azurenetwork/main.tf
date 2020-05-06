@@ -1,7 +1,8 @@
 #Azure Generic vNet Module
 resource "azurerm_resource_group" "network" {
-  name     = var.resource_group_name
-  location = var.location
+  name      = var.resource_group_name
+  location  = var.location
+  tags      = var.tags
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -10,9 +11,17 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = [var.address_space]
   resource_group_name = azurerm_resource_group.network.name
   dns_servers         = var.dns_servers
-  tags                = var.tags
+
+  subnet{
+    name            = var.subnet_names[0]
+    address_prefix  = var.subnet_prefixes[0]
+    security_group  = azurerm_network_security_group.security_group.id
+  }
+
+  tags  = var.tags
 }
 
+/*
 resource "azurerm_subnet" "subnet" {
   name                 = var.subnet_names[count.index]
   virtual_network_name = azurerm_virtual_network.vnet.name
@@ -21,10 +30,12 @@ resource "azurerm_subnet" "subnet" {
   network_security_group_id = azurerm_network_security_group.security_group.id
   count                =  length(var.subnet_names)
 }
+*/
 
 locals {
-  subnet_ids = azurerm_subnet.subnet.*.id
+  subnet_ids = azurerm_virtual_network.vnet.subnet.*.id
 }
+
 
 resource "azurerm_network_security_group" "security_group" {
   name                  = var.sg_name 

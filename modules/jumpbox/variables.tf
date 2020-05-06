@@ -13,11 +13,6 @@ variable "admin_username" {
   description = "Admin Username for Virtual Machines"
 }
 
-variable "jump_box_vm_public_ip_dns" {
-  description = "description"
-  default = []
-}
-
 variable "jump_box_vm_number_public_ip" {
   description = "description"
   default = 0
@@ -36,6 +31,16 @@ variable "jump_box_vm_size" {
   description = "description"
 }
 
+variable "jump_box_vm_os_simple"{   
+  description = "description"                 
+  default = "Desktop"
+}
+
+variable "jump_box_vm_os_id"{   
+  description = "description"                 
+  default = ""
+}
+  
 variable "resource_group_name" {
   description = ""
 }

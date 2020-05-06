@@ -20,7 +20,7 @@ output "vnet_address_space" {
 
 output "vnet_subnets" {
   description = "The ids of subnets created inside the newl vNet"    
-  value = "${azurerm_subnet.subnet.*.id}"
+  value = "${local.subnet_ids}"
 }
 
 output "security_group_id" {
@@ -36,7 +36,9 @@ output "azurerm_resource_group_location" {
   description = "The location/region of resource group created"
 }
 
+/*
 output "azurerm_subnet_ids" {
   value       = "${local.subnet_ids}"
   description = "The subnet IDs for the VNET"
 }
+*/

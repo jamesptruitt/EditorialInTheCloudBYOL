@@ -1,0 +1,64 @@
+{
+    "variables": {
+        "client_id": "870d0f2c-1e41-424b-bb55-fd07f91f51c3",
+        "client_secret": "0b43ae17-1d0c-4c12-9881-427df835fe66",
+        "subscription_id": "099b944c-88e4-4e8a-a31f-53a40b1fb996",
+        "tenant_id": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+    },
+    "builders": [{
+        "type": "azure-arm",
+  
+        "client_id": "{{user `client_id`}}",
+        "client_secret": "{{user `client_secret`}}",
+        "subscription_id": "{{user `subscription_id`}}",
+        "tenant_id": "{{user `tenant_id`}}",
+  
+        "shared_image_gallery_destination": {
+            "resource_group": "shared-images",
+            "gallery_name": "shared_image_gallery",
+            "image_name": "MediaWorker",
+            "image_version": "{{isotime \"06\"}}.{{isotime \"01\"}}.{{isotime \"02030405\"}}",
+            "replication_regions": ["eastus"]
+        },
+
+        "managed_image_resource_group_name": "shared-images",
+        "managed_image_name": "mediaworker-image-{{isotime \"20060102030405\"}}",
+  
+        "os_type": "Windows",
+        "image_publisher": "MicrosoftWindowsServer",
+        "image_offer": "WindowsServer",
+        "image_sku": "2019-Datacenter",
+  
+        "communicator": "winrm",
+        "winrm_use_ssl": true,
+        "winrm_insecure": true,
+        "winrm_timeout": "30m",
+        "winrm_username": "packer",
+  
+        "azure_tags": {
+            "dept": "Learning",
+            "task": "Image deployment"
+        },
+  
+        "location": "East US",
+        "vm_size": "Standard_NV12"
+    }],
+    "provisioners": [{
+        "type": "powershell",
+        "script": "./scripts/media_worker_setup.ps1",
+        "environment_vars":[
+            "avid_nexis_client_url=https://editorialbyol.blob.core.windows.net/installers/AvidNEXISClient_Win64_19.12.1.9.msi",
+            "google_chrome_enterprise_url=https://editorialbyol.blob.core.windows.net/installers/googlechromestandaloneenterprise64.msi",
+            "putty_url=https://editorialbyol.blob.core.windows.net/installers/putty-64bit-0.71-installer.msi",
+            "mam_control_service_url=https://editorialbyol.blob.core.windows.net/installers/MAMControlService_3.1.0.216.exe"  
+        ]
+    },
+    {
+        "type": "powershell",
+        "inline": [
+            "Add-WindowsFeature Web-Server",
+            "& $env:SystemRoot\\System32\\Sysprep\\Sysprep.exe /oobe /generalize /quiet /quit",
+            "while($true) { $imageState = Get-ItemProperty HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Setup\\State | Select ImageState; if($imageState.ImageState -ne 'IMAGE_STATE_GENERALIZE_RESEAL_TO_OOBE') { Write-Output $imageState.ImageState; Start-Sleep -s 10  } else { break } }"
+        ]
+    }]
+  }
