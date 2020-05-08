@@ -9,7 +9,7 @@
       "nexis_storage_vm_script_name":"installNexis.bash",
       "nexis_storage_vm_artifacts_location":"https://ssengreleng.blob.core.windows.net/nexisgold/19.12.1/installers",
       "nexis_storage_vm_build":"AvidNexisCloud_19.12.1-9.run",
-      "nexis_storage_vm_part_number":"0100-38171-00"
+      "nexis_storage_vm_part_number":"0100-40109-00"
     },
     "builders": [{
       "type": "azure-arm",
@@ -25,13 +25,13 @@
       "shared_image_gallery_destination": {
         "resource_group": "shared-images",
         "gallery_name": "shared_image_gallery",
-        "image_name": "Nexis",
+        "image_name": "Nexis_Cloud_Online",
         "image_version": "{{isotime \"06\"}}.{{isotime \"01\"}}.{{isotime \"02030405\"}}",
         "replication_regions": ["eastus"]
       },
 
       "managed_image_resource_group_name": "shared-images",
-      "managed_image_name": "nexis-image-{{isotime \"20060102030405\"}}",
+      "managed_image_name": "nexis-cloud-online-image-{{isotime \"20060102030405\"}}",
   
       "ssh_username": "{{user `ssh_user`}}",
       "ssh_password": "{{user `ssh_pass`}}",

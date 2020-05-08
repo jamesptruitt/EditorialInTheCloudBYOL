@@ -58,14 +58,14 @@ locals {
   gallery_name                          = var.gallery_name
   gallery_resource_group_name           = var.gallery_resource_group_name
   
-  media_composer_image_version          = var.media_composer_image_version
-  media_composer_image_name             = var.media_composer_image_name
+  media_composer_image_version          = "${element(split(",", lookup(var.mediacomposer_storage_image, var.mediacomposer_type, "")), 0)}"
+  media_composer_image_name             = "${element(split(",", lookup(var.mediacomposer_storage_image, var.mediacomposer_type, "")), 1)}"
 
   jumpbox_image_version                 = var.jumpbox_image_version
   jumpbox_image_name                    = var.jumpbox_image_name 
 
-  nexis_image_version                   = var.nexis_image_version
-  nexis_image_name                      = var.nexis_image_name 
+  nexis_image_version                   = "${element(split(",", lookup(var.nexis_storage_image, var.nexis_type, "")), 0)}"
+  nexis_image_name                      = "${element(split(",", lookup(var.nexis_storage_image, var.nexis_type, "")), 1)}" 
 
   media_central_image_version           = var.media_central_image_version
   media_central_image_name              = var.media_central_image_name 

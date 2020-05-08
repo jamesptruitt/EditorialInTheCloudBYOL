@@ -47,6 +47,13 @@ data "azurerm_shared_image_version" "shared_image" {
   resource_group_name = var.gallery_resource_group_name
 }
 
+data "azurerm_shared_image" "shared_image" {
+  provider            = azurerm.sharedgalleryreader
+  name                = var.shared_image_name
+  gallery_name        = var.gallery_name
+  resource_group_name = var.gallery_resource_group_name
+}
+
 output "shared_image_gallery_image_id" {
-  value = "${data.azurerm_shared_image_version.shared_image.id}"
+  value = "${data.azurerm_shared_image.shared_image.id}"
 }

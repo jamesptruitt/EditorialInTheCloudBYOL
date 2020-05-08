@@ -93,7 +93,11 @@ variable "nexis_storage_vm_number_public_ip" {
 
 variable "nexis_type" {
     description = ""
-}    
+}
+
+variable "mediacomposer_type" {
+    description = ""
+}  
 
 variable "mediaworker_vm_size" {
     description = ""
@@ -151,22 +155,6 @@ variable "gallery_resource_group_name" {
     description = ""
 }  
 
-variable "media_composer_image_version" {
-    description = ""
-}
-
-variable "media_composer_image_name" {
-    description = ""
-}
-
-variable "nexis_image_version" {
-    description = ""
-}
-
-variable "nexis_image_name" {
-    description = "" 
-}
-
 variable "media_central_image_version" {
     description = ""
 }
@@ -193,4 +181,18 @@ variable "jumpbox_image_name" {
 
 variable "azureTags" {
     description = ""
+}
+
+variable "nexis_storage_image" { 
+  default       = {
+    "CloudNearline" = "latest,Nexis_Nearline"
+    "CloudOnline"   = "latest,Nexis_Cloud_Online"
+  }
+}
+
+variable "mediacomposer_storage_image" { 
+  default       = {
+    "MediaComposer"     = "latest,MediaComposer"
+    "MediaComposer2020" = "latest,MediaComposer2020"
+  }
 }

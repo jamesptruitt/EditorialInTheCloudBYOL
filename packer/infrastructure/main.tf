@@ -93,7 +93,7 @@ resource "azurerm_shared_image" "shared-images-MediaComposer2020" {
   }
 }
 
-resource "azurerm_shared_image" "shared-images-MediaComposer" {
+resource "azurerm_shared_image" "shared-images-Mediaworker" {
   name                = "MediaWorker"
   gallery_name        = azurerm_shared_image_gallery.shared-images.name
   resource_group_name = azurerm_resource_group.shared-images.name
@@ -107,8 +107,8 @@ resource "azurerm_shared_image" "shared-images-MediaComposer" {
   }
 }
 
-resource "azurerm_shared_image" "shared-images-Nexis" {
-  name                = "Nexis"
+resource "azurerm_shared_image" "shared-images-Nexis-Cloud-Online" {
+  name                = "Nexis_Cloud_Online"
   gallery_name        = azurerm_shared_image_gallery.shared-images.name
   resource_group_name = azurerm_resource_group.shared-images.name
   location            = azurerm_resource_group.shared-images.location
@@ -117,7 +117,21 @@ resource "azurerm_shared_image" "shared-images-Nexis" {
   identifier {
     publisher = "SharedImages"
     offer     = "EditorialInTheCloud"
-    sku       = "Nexis"
+    sku       = "Nexis_Cloud_Online"
+  }
+}
+
+resource "azurerm_shared_image" "shared-images-Nexis-Nearline" {
+  name                = "Nexis_Nearline"
+  gallery_name        = azurerm_shared_image_gallery.shared-images.name
+  resource_group_name = azurerm_resource_group.shared-images.name
+  location            = azurerm_resource_group.shared-images.location
+  os_type             = "Linux"
+
+  identifier {
+    publisher = "SharedImages"
+    offer     = "EditorialInTheCloud"
+    sku       = "Nexis_Nearline"
   }
 }
 

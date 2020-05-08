@@ -30,3 +30,4 @@ override.tf.json
 *tfplan*
 
 terraform.tfvars
+packer/deployment/terraform.tfvars
