@@ -20,7 +20,10 @@
         jumpbox.json
         mediacentral.json
         mediacomposer.json
-        nexis.json
+        mediacomposer2020.json
+        mediaworker.json
+        nexis_cloud_online.json
+        nexis_nearline.json
         infrastructure/main.tf
         deployment/main.tf
 
